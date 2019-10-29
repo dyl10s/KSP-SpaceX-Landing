@@ -5,12 +5,11 @@ conn = krpc.connect(
 
 while True:
     vessel = conn.space_center.active_vessel
-    conn.space_center.physics_warp_factor = 3
     conn.space_center.save('ailandersavelaunch')
 
     partCount = len(vessel.parts.all)
-
     conn.space_center.physics_warp_factor = 3
+    
     altitude = conn.add_stream(getattr, vessel.flight(), 'mean_altitude')
     situation = conn.add_stream(getattr, vessel, 'situation')
     ref_frame = vessel.orbit.body.reference_frame
