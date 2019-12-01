@@ -2,19 +2,15 @@ class GameState:
     def __init__(self, game):
         self.game = game
     
+    #Get the current state of the game as well as running the specified actions
+    #on the game client. Returns the state and a value that says if the
+    #vessel has exploded or not
     def getState(self, actions):
-        score = self.game.getScore()
-        reward = 10 * score
         isOver = False
 
-        self.game.Pitch(actions[0])
-        self.game.Yaw(actions[1])
-        self.game.Roll(actions[2])
-        self.game.Throttle(actions[3])
+        self.game.Throttle(actions[0].item())
 
         if self.game.isDead():
-            self.game.restart()
-            reward = -10/(score + .00001)
             isOver = True
         
-        return self.game.getState(), reward, isOver
+        return self.game.getState(), isOver
