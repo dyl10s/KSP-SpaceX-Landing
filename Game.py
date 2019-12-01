@@ -30,7 +30,11 @@ class Game:
     #This loads the original save and launches the vessel to a set altitude
     #before making a new save and starting the main loop from that point
     def StartRun(self):
+
         self.playing = False
+        
+        #This save 'ailandersavelaunch' must exist for us to load
+        #This save should just be the rocket flat on the launch pad
         self.conn.space_center.load('ailandersavelaunch')
         self.conn.space_center.physics_warp_factor = 3
 
@@ -39,7 +43,11 @@ class Game:
         self.vessel.control.activate_next_stage()
 
         altitude = self.conn.add_stream(getattr, self.vessel.flight(self.kerbin.reference_frame), 'mean_altitude')
+        
+        #We pitch slightly so we land in an open area
         self.Pitch(.2)
+
+        #This will wait till we are at a specific height before making the save point
         while altitude() < 1000:
             print('Launching')
         
@@ -49,11 +57,18 @@ class Game:
 
     #This loads a save at a set altitude for quick training and testing
     def FallRun(self):
+        
+        #Load the save point made from the initial launch
         self.conn.space_center.load('ailandersave')
+
         self.playing = True
         self.vessel.control.throttle = 0
         self.conn.space_center.physics_warp_factor = 4
+
+        #This will keep track of the original amount of parts on the vessel
+        #if we do not equal that then we know there has been a crash
         self.partCount = len(self.vessel.parts.all)
+
         self.vessel.control.sas = False
         self.vessel.control.parachutes = True
         
