@@ -7,7 +7,7 @@ Steps to get it runnning (This uses python 3.6.1)
 - [x] Get the kRPC python package `pip install krpc`
 - [x] Get the Tensorflow python package `pip install Tensorflow`
 - [x] Open up Kerbal Space Program
-- [x] Load a rocket on the launch pad.
+- [x] Load a rocket on the launch pad - We used the following https://steamcommunity.com/sharedfiles/filedetails/?id=1741803032&searchtext=falcon+booster.
 - [x] Configure the kRPC server in game to use RPC port 5002 and Stream port 5003
 - [x] Start the in-game kRPC server
 - [x] Run this script. 
